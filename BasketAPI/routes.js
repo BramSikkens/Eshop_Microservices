@@ -18,6 +18,22 @@ router.post("/baskets", async (req, res) => {
   }
 });
 
+router.get("/baskets/:userId", async (req, res) => {
+  const foundBasket = await Basket.findOne({
+    customerId: req.params.userId,
+  }).populate("items");
+  if (foundBasket) {
+    res.status(200).json(foundBasket);
+  } else {
+    const newUserBasket = new Basket({
+      customerId: req.params.userId,
+    });
+
+    const newSavedBasket = await newUserBasket.save(newUserBasket);
+    res.status(201).json(newSavedBasket);
+  }
+});
+
 //add Item to basket
 router.post("/basket/:id/item", async (req, res) => {
   try {
@@ -44,12 +60,6 @@ router.post("/basket/:id/item", async (req, res) => {
   }
 });
 
-router.delete("/basket/:id/item/:itemId",async (req, res) => {
-
-  
-
-
-
-})
+router.delete("/basket/:id/item/:itemId", async (req, res) => {});
 
 module.exports = router;

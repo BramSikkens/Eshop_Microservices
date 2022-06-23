@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { signInRx } from "../redux/slices/authenticationSlice";
+import { registerRx } from "../redux/slices/authenticationSlice";
 import { useNavigate } from "react-router-dom";
+import { fetchUserBasket } from "../redux/slices/basketSlice";
 
 export default function RegisterPage() {
   const [emailField, setEmailField] = useState("");
@@ -12,56 +13,67 @@ export default function RegisterPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // if (user) {
-  //   navigate("/products", { replace: true });
-  // }
+  if (user && user._id) {
+    dispatch(fetchUserBasket(user._id));
+    navigate("/", { replace: true });
+  }
   return (
-    <Container>
-      <h1>Register Page</h1>
-      <Form
-        onSubmit={(e) => {
-          e.preventDefault();
-          fetch("http://localhost:5001/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: emailField,
-              password: passwordField,
-            }),
-          }).then((res) =>
-            res.json().then((user) => {
-              console.log(user);
-              dispatch(signInRx(user));
-            })
-          );
-        }}
-      >
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="name@example.com"
-            onChange={(e) => {
-              setEmailField(e.target.value);
+    <Container className="p-5">
+      <Row>
+        <Col md={{ span: 9, offset: 2 }}>
+          <h2>Account Aanmaken</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ span: 4, offset: 2 }}>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              dispatch(
+                registerRx({ email: emailField, password: passwordField })
+              );
             }}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setPasswordField(e.target.value);
-            }}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Register
-        </Button>
-      </Form>
+          >
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                onChange={(e) => {
+                  setEmailField(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Example textarea</Form.Label>
+              <Form.Control
+                type="password"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setPasswordField(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <div className="d-grid gap-2">
+              <Button variant="success" size="lg" type="submit">
+                Account aanmaken
+              </Button>
+            </div>
+          </Form>
+        </Col>
+        <Col md={{ span: 4 }}>
+          <h4>Nieuwe Klant?</h4>
+          <p>Nieuwe redenen om een account aan te maken</p>
+          <ul>
+            <li>Beheer al je bestellingen en retouren op één plek</li>
+            <li>Bestel sneller met je bewaarde adresgegevens</li>
+            <li>Je winkelwagen altijd en overal opgeslagen</li>
+          </ul>
+        </Col>
+      </Row>
     </Container>
   );
 }

@@ -1,0 +1,31 @@
+.productCardTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #037fcd;
+}
+
+.shoppingButton {
+  border: none;
+  width: 55px;
+  height: 40px;
+  background-color: #52be52;
+  color: white;
+  font-weight: bold;
+  border-radius: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pricingContainer {
+  display: flex;
+  align-items: center;
+}
+
+.pricingContainer .shoppingButton {
+  margin-left: auto;
+}
+
+.price {
+  font-size: 0.8rem;
+}

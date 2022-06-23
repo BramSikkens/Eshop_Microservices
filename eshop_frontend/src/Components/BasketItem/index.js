@@ -7,25 +7,15 @@ import React from "react";
 function BasketItem({ title, id }) {
   const dispatch = useDispatch();
   return (
-    <Col md={9} style={{ backgroundColor: "grey" }}>
-      <span>
-        <b>{title}</b>
-      </span>
-      <p>Some Product Description</p>
-      <b>Price:</b>
-      <span>5€</span>
-      <br />
-      <b>Amount:</b>
-
-      <span>1</span>
-      <Button
-        onClick={() => {
-          dispatch(removeItem(id));
-        }}
-      >
-        Remove
-      </Button>
-    </Col>
+    <div>
+      <div class="basketBoxProductRow">
+        <img src="https://picsum.photos/seed/picsum/200/100" />
+        <span class="productTitle">Product 1</span>
+        <span class="price">
+          <b>999,-</b>
+        </span>
+      </div>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProductCard from "../Components/ProductCard";
+import { baseURLs } from "../lib/Microservices";
 
 export default function ProductPage() {
   const [products, setProducts] = useState([]);
@@ -19,7 +20,7 @@ export default function ProductPage() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/products")
+    fetch(baseURLs.productAPI + "/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(createProductRows(data));

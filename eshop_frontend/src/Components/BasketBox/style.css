@@ -1,0 +1,40 @@
+.basketBox {
+  display: flex;
+  width: 400px;
+  min-height: 100px;
+  background-color: white;
+  flex-direction: column;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  box-shadow: 0 1px 5px #32323299;
+  z-index: 9;
+  margin-top: 5px;
+  text-align: left;
+  margin-right: 3rem;
+}
+
+.shoppingLogo {
+  color: white;
+  font-size: 2.5rem;
+}
+
+.basketBoxProductRow {
+  display: flex;
+}
+
+.basketBoxProductRow img {
+  height: 80px;
+  width: 100px;
+}
+
+.productTitle {
+  margin-left: 2%;
+  font-size: 0.8rem;
+  color: #0891e7;
+}
+
+.basketBoxProductRow .price {
+  margin-left: auto;
+}
